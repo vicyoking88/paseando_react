@@ -84,7 +84,6 @@ export default class GoogleLogin extends Component {
       )
     } else {
 
-     
       return (
         <div>
           <h2>esta logueado con google</h2>

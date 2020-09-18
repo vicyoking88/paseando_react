@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import GoogleLogin from './googleLogin.js';
+import FB_Login from './fb_Login';
 
 class App extends Component {
   constructor(props) {
@@ -27,15 +28,12 @@ class App extends Component {
   render() {
 
     if (this.state.logged === '1') {
-      return (<GoogleLogin loginStatus={this.loginStatus} logged={this.state.logged} />
+      return (<GoogleLogin loginStatus={this.loginStatus} logged={this.state.logged}/>
       )
     }
     else if (this.state.logged === '2') {
       return (
-        <div>
-          <h2>esta logueado con Facebook</h2>
-          <div className='btn btn-primary' onClick={(e) => this.loginStatus(e, '0')} >Salir</div>
-        </div>
+        <FB_Login loginStatus={this.loginStatus} logged={this.state.logged}/>
       )
     }
     else if (this.state.logged === '3') {
@@ -55,7 +53,8 @@ class App extends Component {
           <form className="container col-12 col-sm-7 col-md-5 col-lg-4">
             <h1 className="h3 mb-3 font-weight-normal text-center"> Sign in</h1>
             <div className="row social-login">
-              <button className="btn btn-primary" type="button" onClick={(e) => this.loginStatus(e, '2')}><span><i className="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+              <FB_Login logged={this.state.logged} loginStatus={this.loginStatus}>
+              </FB_Login>
               <GoogleLogin logged={this.state.logged} loginStatus={this.loginStatus}>
               </GoogleLogin>
             </div>
