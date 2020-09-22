@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './App.css';
+import Mapapp from './mapApp.js';
 
 export default class GoogleLogin extends Component {
 
@@ -67,14 +68,7 @@ export default class GoogleLogin extends Component {
       );
     auth2.disconnect();
   }
-  /*
-    manejoOnClick = (e) => {
-      if (e.target.id==='ingresar')
-        this.login()
-      else if (e.target.id==='salir')
-        this.logout();
-    }
-    */
+
   render() {
 
     if (this.state.logged === '0') {
@@ -85,11 +79,17 @@ export default class GoogleLogin extends Component {
     } else {
 
       return (
-        <div>
+        
+       <div>
+          
           <h2>esta logueado con google</h2>
           <div className='btn btn-primary' onClick={(e) => this.logout()}>Salir</div>
+          <Mapapp></Mapapp>
         </div>
+
+
       )
+       
     }
   }
 

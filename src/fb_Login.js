@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Mapapp from './mapApp.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 
 export default class FB_Login extends Component {
@@ -85,6 +86,7 @@ export default class FB_Login extends Component {
         <div>
           <h2>esta logueado con Facebook</h2>
           <div className='btn btn-primary' onClick={(e) => this.manejoOnClick()} >Salir</div>
+          <Mapapp></Mapapp>
         </div>
 
       )
