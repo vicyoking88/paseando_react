@@ -9,6 +9,8 @@ class Mapapp extends Component {
     super(props);
     this.state = { photo: '' }
   }
+
+  map=''
   //ESTO VA DE SEGUNDO 2 ***********************************************
 
   //cargamos javascritp de google a la pagina antes de hacer uso de sus funcionalidades
@@ -24,12 +26,23 @@ class Mapapp extends Component {
           center: mapCenter,
           zoom: 15
         });
+        var marcador = new this.google.maps.Marker({ position: mapCenter, map: this.map })
+        this.showMap(mapCenter);
       };
     }, 100);
   }
 
+  showMap(mapCenter) {
+    // The location of Uluru
+    var uluru = { lat: -25.344, lng: 131.036 };
+    // The map, centered at Uluru
+    var map = new window.google.maps.Map(
+      document.getElementById('map'), { zoom: 15, center: mapCenter });
+    // The marker, positioned at Uluru
+    var marker = new window.google.maps.Marker({ position: mapCenter, map: map });
+  }
 
-//**ESTO VA CUARTO 4 *********************************************** */
+  //**ESTO VA CUARTO 4 *********************************************** */
 
   manejoOnClick = (e) => {
     const request = {//creamos un request con lps atrobutoss query
@@ -67,9 +80,9 @@ class Mapapp extends Component {
 
     //busqueda de detalle adicional del lugar
     if (placesTemp.length > 0)
-    //ESTO VA DE SEPTIMO 7 *****DENTRO DEL 5 ****************************
-      
-     this.findPlaceDetail(placeId);//esta funcion para obtener mas detalles del lugar
+      //ESTO VA DE SEPTIMO 7 *****DENTRO DEL 5 ****************************
+
+      this.findPlaceDetail(placeId);//esta funcion para obtener mas detalles del lugar
     else {
       // IMPRIMIMOS SI no se obtuvo ningun resultado
       const placeTemp = {
@@ -83,13 +96,13 @@ class Mapapp extends Component {
   }
 
 
-//SIGUE SEPTIMO PASO 7 QUE VA DENTRO DEL 5 PASO**************************
+  //SIGUE SEPTIMO PASO 7 QUE VA DENTRO DEL 5 PASO**************************
 
   findPlaceDetail = (placeIdFound) => {
     var request = {//creamos un nuevo request con el query de la informacion adicional que quiero buscar
       placeId: placeIdFound,//indicamos el id del sitio a buscar y seguido la informacion que queremos que el servicio nos devuleva
-      fields: ['address_component', 'adr_address', 'alt_id', 'formatted_address', 'opening_hours', 'icon', 'id', 'name', 'permanently_closed', 'photo', 'place_id', 'geometry', 'rating','reviews', 'plus_code', 'scope', 
-       'type', 'url', 'utc_offset', 'vicinity']
+      fields: ['address_component', 'adr_address', 'alt_id', 'formatted_address', 'opening_hours', 'icon', 'id', 'name', 'permanently_closed', 'photo', 'place_id', 'geometry', 'rating', 'reviews', 'plus_code', 'scope',
+        'type', 'url', 'utc_offset', 'vicinity']
     };
     //usamos el metodo getDetails que hace parte del api de google
     //del objeto service previamente instanciado
@@ -97,47 +110,56 @@ class Mapapp extends Component {
     this.service.getDetails(request, this.foundPlaceDatail);
   }
 
-//***ESTO VA DE OCTAVO 8 **************************** LLAMADO DEL 7 PASO 
+  //***ESTO VA DE OCTAVO 8 **************************** LLAMADO DEL 7 PASO 
 
-// cargamos la respuesta y el status devuelvo por api google
-//si es ok cargamos las fotos 
+  // cargamos la respuesta y el status devuelvo por api google
+  //si es ok cargamos las fotos 
 
   foundPlaceDatail = (place, status) => {
-    if (status === 'OK'){
-      var placePhotos=['']
-      if (place.photos){
+    if (status === 'OK') {
+      var placePhotos = ['']
+      if (place.photos) {
         place.photos.map((placePhoto, index) => {
-          placePhotos[index]=placePhoto.getUrl({'maxWidth': 160, 'maxHeight': 120})
+          placePhotos[index] = placePhoto.getUrl({ 'maxWidth': 160, 'maxHeight': 120 })
           if (index === 2) return;
         })
       }
-      const placeTemp = {id:place.place_id, name:place.name,
-        address:place.formatted_address,photos:placePhotos}
-        //cargo en una constante la informacion del sitio
-      const placesTemp = <Place placeData={placeTemp}/>;
+      const placeTemp = {
+        id: place.place_id, name: place.name,
+        address: place.formatted_address, photos: placePhotos
+      }
+      //cargo en una constante la informacion del sitio
+      const placesTemp = <Place placeData={placeTemp} />;
       //cargo a una constante la informacion del horario
-      const placeHorarios = <Horario horarios={place.opening_hours}/>
-        // creamos variable para cargar el rating
-      var rating=''
-      if (place.rating){
-        rating = <Rating placeRating={place.rating} placeReviews={place.reviews}/>
+      const placeHorarios = <Horario horarios={place.opening_hours} />
+      // creamos variable para cargar el rating
+      var rating = ''
+      if (place.rating) {
+        rating = <Rating placeRating={place.rating} placeReviews={place.reviews} />
+      }else{
+        rating = <div key={1} className='row mt-2 mb-1 pl-3' >
+                  <strong>No hay comentarios</strong>
+                 </div>;
       }
 
-      console.log('address_component: '+ place.address_component, 
-      'adr_address: '+place.adr_address, 'alt_id', 'formatted_address', 'geometry',
-      'icon: '+place.icon, 'permanently_closed', 'photo',
-      'type: '+place.type, 'url: '+place.url, 'utc_offset', 'vicinity')
+      console.log('address_component: ' + place.address_component,
+        'adr_address: ' + place.adr_address, 'alt_id', 'formatted_address', 'geometry',
+        'icon: ' + place.icon, 'permanently_closed', 'photo',
+        'type: ' + place.type, 'url: ' + place.url, 'utc_offset', 'vicinity')
 
-        //activo setState para que renderice nuevamente y cargue la informacion que devuelve del sitio, su horario y rating
-      this.setState({places:placesTemp, placeRating:rating,
-        placeHorarios2:placeHorarios})
+      //activo setState para que renderice nuevamente y cargue la informacion que devuelve del sitio, su horario y rating
+      this.setState({
+        places: placesTemp, placeRating: rating,
+        placeHorarios: placeHorarios
+      })
+      this.showMap(place.geometry.location);
     }
   }
 
 
 
-  
-// ESTO VA PRIMERO   1****************************************************
+
+  // ESTO VA PRIMERO   1****************************************************
 
 
   render() {
@@ -161,15 +183,16 @@ class Mapapp extends Component {
             <div className='col-4'></div>
             <div className='col-4 text-center'>
 
-    {/***ESTO VA TERCERO 3 ****************************************** */}
+              {/***ESTO VA TERCERO 3 ****************************************** */}
 
               <div className='btn btn-primary text-center' onClick={this.manejoOnClick}>Buscar Lugar</div>{/***invocamos la funcion manejoOnclick al prisionar en buscar lugar */}
             </div>
             <div className='col-4'></div>
           </div>
           {this.state.places}
-          {this.state.placeHorarios2}
-          {this.state.placeRating} 
+          {this.state.placeHorarios}
+          {this.state.placeRating}
+          <div id='map' className='mt-2' ></div>
         </div>
       </div>
     );
