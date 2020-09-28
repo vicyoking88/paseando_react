@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import GoogleLogin from './googleLogin.js';
 import FB_Login from './fb_Login';
+import Mapapp from './mapApp.js';
+
 
 class App extends Component {
   constructor(props) {
@@ -10,8 +12,6 @@ class App extends Component {
       logged: this.props.login
     };
   }
-
-
 
   /*
     loginStatus = (loginGoogle) => {
@@ -28,12 +28,12 @@ class App extends Component {
   render() {
 
     if (this.state.logged === '1') {
-      return (<GoogleLogin loginStatus={this.loginStatus} logged={this.state.logged}/>
+      return (<GoogleLogin loginStatus={this.loginStatus} logged={this.state.logged} />
       )
     }
     else if (this.state.logged === '2') {
       return (
-        <FB_Login loginStatus={this.loginStatus} logged={this.state.logged}/>
+        <FB_Login loginStatus={this.loginStatus} logged={this.state.logged} />
       )
     }
     else if (this.state.logged === '3') {
@@ -41,6 +41,7 @@ class App extends Component {
         <div>
           <h2>esta logueado con Paseando Ando</h2>
           <div className='btn btn-primary' onClick={(e) => this.loginStatus(e, '0')} >Salir</div>
+          <Mapapp></Mapapp>
         </div>
       )
 
@@ -48,6 +49,8 @@ class App extends Component {
     else {
 
       return (
+
+
         <div className='ml-auto mr-auto border rounded m-5'>
           <h2>Ingreso</h2>
           <form className="container col-12 col-sm-7 col-md-5 col-lg-4">
@@ -78,10 +81,8 @@ class App extends Component {
             <hr />
             <button className="btn btn-primary btn-block" type="button" id="btn-signup"><i className="fas fa-user-plus"></i> Sign up New Account</button>
             <br />
-
-          </form>
+          </form> 
         </div>
-
       )
 
     }
