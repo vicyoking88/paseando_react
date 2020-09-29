@@ -13,18 +13,19 @@ class App extends Component {
     };
   }
 
-  /*
-    loginStatus = (loginGoogle) => {
-      this.setState({logged:loginGoogle})
-    };
-  */
+  /*estado del login*/
   loginStatus = (e, logged) => {
     this.setState({
       logged: logged
     })
   }
-
-  //cargamos interfaz
+  //cerrar sesion
+  loginOut = (e, logged) => {
+    this.setState({
+      logged:"0"
+    })
+  }
+  //cargamos interfaz login
   render() {
 
     if (this.state.logged === '1') {
@@ -39,20 +40,24 @@ class App extends Component {
     else if (this.state.logged === '3') {
       return (
         <div>
-          <h2>esta logueado con Paseando Ando</h2>
-          <div className='btn btn-primary' onClick={(e) => this.loginStatus(e, '0')} >Salir</div>
-          <Mapapp></Mapapp>
+          <Mapapp icon2={<img className="d-inline-block align-top" src="./apseando_ando.jpg" width="30" height="30"></img>} logout={this.loginOut}></Mapapp>
         </div>
       )
 
     }
     else {
-
       return (
 
+        <div className='ml-auto mr-auto border rounded mt-1'>
+          <nav className="navbar navbar-light bg-light">
+            <a href="#" className="text-danger">
+              <img className="d-inline-block align-top" src="./apseando_ando.jpg" width="40" height="40"></img>
+              <span className="logo_p"> Paseando Ando</span>
+            </a>
+          </nav>
 
-        <div className='ml-auto mr-auto border rounded m-5'>
-          <h2>Ingreso</h2>
+          <br />
+          <br />
           <form className="container col-12 col-sm-7 col-md-5 col-lg-4">
             <h1 className="h3 mb-3 font-weight-normal text-center"> Sign in</h1>
             <div className="row social-login">
@@ -81,7 +86,7 @@ class App extends Component {
             <hr />
             <button className="btn btn-primary btn-block" type="button" id="btn-signup"><i className="fas fa-user-plus"></i> Sign up New Account</button>
             <br />
-          </form> 
+          </form>
         </div>
       )
 

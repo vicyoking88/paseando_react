@@ -6,7 +6,7 @@ export default class Rating extends Component {
     super(props);
     this.state={mostrarComentarios:this.props.mostrarComentarios};
   }
-
+//METODO PARA CREAR CANVAS
   drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius,color) {
     var rot = Math.PI / 2 * 3;
     var x = cx;
@@ -35,7 +35,7 @@ export default class Rating extends Component {
     ctx.fillStyle=color;
     ctx.fill();
   }
-    
+    //EJECUTAMOS DESPUES DEL RENDER LOS ICONOS CANVAS
   componentDidMount(){
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
@@ -56,14 +56,14 @@ export default class Rating extends Component {
       this.drawStar(ctx, initx+(stepPos*completeStar), 12, 5, 10, 4.5,gradient);
     }
   }
-
+//SOLICITAMOS MOSTRAR LOS COMENTARIOS
   manejoOnClick = (e) => {
     if (e.target.id==='btnComentarios')
       this.setState((prevState) => {
         return {mostrarComentarios: !prevState.mostrarComentarios}
       })
   }
-
+//RENDER DE LOS COMENTARIOS
   render() {
     const startRating = []
     const completeStar = Math.floor(this.props.placeRating);

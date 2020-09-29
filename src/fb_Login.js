@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Mapapp from './mapApp.js';
-import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import './App.css';
+
 
 export default class FB_Login extends Component {
   constructor(props) {
@@ -32,11 +33,12 @@ export default class FB_Login extends Component {
     }(document, 'script', 'facebook-jssdk'));
     document.addEventListener('FBListo', this.fbLoginStatus);
   }
-
+//cargamos las libreria apenas termina el render
   componentDidMount() {
     this.iniciarFB()
   }
 
+  //ejecutamos el login y validamos si se logueo
   fbLoginStatus = () => {
     this.FB = window.FB;
     var logged = '';
@@ -58,13 +60,10 @@ export default class FB_Login extends Component {
       this.props.loginStatus(this, '0');
       this.setState({ fbLogon: '0' })
     }
-    /*
-    this.setState({ fbLogon: logged })
-    this.props.loginStatus(logged);
-    */
+ 
 
   }
-
+//pedimos que se loguee
   manejoOnClick = () => {
     if (!this.FB) this.FB = window.FB;
     if (this.FB) {
@@ -76,6 +75,7 @@ export default class FB_Login extends Component {
     }
   }
 
+  //cargamos interfaz boton de logueo para facebook en caso contrario cargamos la interfaz del mapa
   render() {
     if (this.state.fbLogon === '0') {
       return (
@@ -84,9 +84,7 @@ export default class FB_Login extends Component {
     } else {
       return (
         <div>
-          <h2>esta logueado con Facebook</h2>
-          <div className='btn btn-primary' onClick={(e) => this.manejoOnClick()} >Salir</div>
-          <Mapapp></Mapapp>
+          <Mapapp icon={"fab fa-facebook-f"} logout={this.manejoOnClick}></Mapapp>
         </div>
 
       )

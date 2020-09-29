@@ -28,7 +28,7 @@ export default class GoogleLogin extends Component {
   }
 
 
-
+  //inciamos login
   login = () => {
     const clientParam = { client_id: '670033030073-rtclsh42bf04r6c5k54tm4dtahe2i0mj.apps.googleusercontent.com' }
     this.gapi.auth2.init(clientParam)
@@ -44,7 +44,7 @@ export default class GoogleLogin extends Component {
           },
           (error) => {
             this.setState({ logged: '0' });
-            
+
             this.props.loginStatus(this, '0');
           }
         )
@@ -54,6 +54,7 @@ export default class GoogleLogin extends Component {
     }
   }
 
+  //finalizamos login
   logout = (e) => {
     var auth2 = this.gapi.auth2.getAuthInstance();
     auth2.signOut()
@@ -68,28 +69,18 @@ export default class GoogleLogin extends Component {
       );
     auth2.disconnect();
   }
-
+  //cargamos interfaz boton de logueo en caso contrario mostramos el mapa
   render() {
-
     if (this.state.logged === '0') {
-     
       return (
         <button className="ml-auto btn-left btn btn-danger" type="button" onClick={(e) => this.login()}><span><i className="fab fa-google-plus-g"></i> Sign in with Google+</span> </button>
       )
     } else {
-
       return (
-        
-       <div>
-          
-          <h2>esta logueado con google</h2>
-          <div className='btn btn-primary' onClick={(e) => this.logout()}>Salir</div>
-          <Mapapp></Mapapp>
+        <div>
+          <Mapapp icon={"fab fa-google-plus-g"} logout={this.logout}></Mapapp>
         </div>
-
-
       )
-       
     }
   }
 

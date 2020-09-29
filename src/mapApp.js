@@ -15,6 +15,9 @@ class Mapapp extends Component {
   }
 
   map = ''
+
+  /****VALIDAMOS QUE SE HAYA DESCARGADO LA LIBRERIA */
+
   //ESTO VA DE SEGUNDO 2 ***********************************************
 
   //cargamos javascritp de google a la pagina antes de hacer uso de sus funcionalidades
@@ -38,27 +41,27 @@ class Mapapp extends Component {
     }, 100);
   }
 
+  /**CON ESTE METODO PEDIMOS MOSTRAR EL MAPA */
+
   showMap(mapCenter) {
     // The location of Uluru
     var uluru = { lat: -25.344, lng: 131.036 };
     // The map, centered at Uluru
     var map = new window.google.maps.Map(
       document.getElementById('map'), { zoom: 15, center: mapCenter });
-
     this.directionsRenderer.setMap(map);
-
     // The marker, positioned at Uluru
     var marker = new window.google.maps.Marker({ position: mapCenter, map: map });
 
   }
 
 
+  /**CON ESTE METODO PEDIMOS QUE SE BUSQUE EL LUGAR ESCRITO EN LA CAJA DE TEXTO EN LOS GOOGLE PLACE */
+
   //**ESTO VA CUARTO 4 *********************************************** */
 
   manejoOnClick = (e) => {
-
     console.log("cargando valores a buscar")
-
     const request = {//creamos un request con lps atrobutoss query
       query: document.getElementById('origen').value, //valor lugar a buscar
       fields: ['photos', 'formatted_address', 'name', 'place_id'],//campos que queremos que nos retorne el servicio de google maps
@@ -71,6 +74,8 @@ class Mapapp extends Component {
     document.getElementById('origen').value = ''
 
   }
+
+  /**CON ESTE METODO OBTENEMOS LA RESPUESTA A LA BUSQUEDA DE SER ASI SE CARGA ARREGLOS Y SI NO MOSTRAR MENSAJE */
 
 
   ///ESTO VA DE QUINTO 5 *************************************************
@@ -111,6 +116,7 @@ class Mapapp extends Component {
     }
   }
 
+  /**ENVIAMOS REQUEST SOLICITANDO MAS DETALLES DEL LUGAR  */
 
   //SIGUE SEPTIMO PASO 7 QUE VA DENTRO DEL 5 PASO**************************
 
@@ -127,6 +133,8 @@ class Mapapp extends Component {
   }
 
   //***ESTO VA DE OCTAVO 8 **************************** LLAMADO DEL 7 PASO 
+
+  /** EN ESTE METODO DESCARGAMOS LA INFORMACION REQUERIDA Y LA ENVIAMOS A LAS DIFERENTES CLASES HIJAS */
 
   // cargamos la respuesta y el status devuelvo por api google
   //si es ok cargamos las fotos 
@@ -149,9 +157,10 @@ class Mapapp extends Component {
       //cargo a una constante la informacion del horario
       const placeHorarios = <Horario horarios={place.opening_hours} />
 
+      //constante con el renderizado de la ruta
       const direccion = <div className='container'>
         <form className="form-inline mb.2" >
-          <button className="col-12 btn btn-primary mb-2 mr-sm-2" onClick={this.Ruta}  >ir al destino indicado</button>
+          <button className="col-12 btn btn-primary mb-2 mr-sm-2 btn-danger" onClick={this.Ruta}  >ir al destino indicado</button>
           <div className="row">
             <div className="col-4">
               <p>Origen</p>
@@ -203,13 +212,13 @@ class Mapapp extends Component {
 
     }
   }
-
+  //METODO PARA CAMBIO DE DESTION DE RUTA
   cambiardestino = (destino) => {
     console.log(destino)
     document.getElementById('origen').value = destino;
     document.getElementById('lugar').click();
   }
-
+  //METODO PARA INDICAR LA DISTANCIA DE LOS SITIOS CERCANOS
   Sitioscercanos = (e) => {
     let request = {
       location: this.state.placeLocation,
@@ -219,7 +228,7 @@ class Mapapp extends Component {
     this.service = new this.google.maps.places.PlacesService(this.map);
     this.service.nearbySearch(request, this.callbackSitioscercanos)
   }
-
+  //METODO PARA CARGAR LOS SITIOS CERCANOS OBTENIDOS DE LA BUSQUEDA
   callbackSitioscercanos = (results, status) => {
     if (status == this.google.maps.places.PlacesServiceStatus.OK) {
       console.log("callback received " + results.length + " results");
@@ -237,7 +246,7 @@ class Mapapp extends Component {
   }
 
 
-
+  //METODO PARA MOSTRAR LA RUTA EN EL MAPA
   Ruta = (e) => {
     e.preventDefault()
     var start = document.getElementById('origenx').value;
@@ -282,10 +291,22 @@ class Mapapp extends Component {
 
   // ESTO VA PRIMERO   1****************************************************
 
+  //RENDER PRINCIPAL DE LO SITIOS
 
   render() {
     return (
       <div className="App" >
+        <nav className="navbar navbar-light bg-light">
+          <a href="#" className="text-danger">
+            <img className="d-inline-block align-top" src="./apseando_ando.jpg" width="40" height="40"></img>
+            <span className="logo_p"> Paseando Ando</span>
+          </a>
+          <a>
+            <span>Identificado  <i className={this.props.icon}></i></span>
+            {this.props.icon2}
+            <div className='btn btn-primary ml-2 btn-danger' onClick={this.props.logout}>Salir</div>
+          </a>
+        </nav>
         <div id='gmapContainer'></div>
         <div className='container border rounded p-3 mt-4' style={{ width: '50%' }}>
           <div className='row'>
@@ -306,7 +327,7 @@ class Mapapp extends Component {
 
               {/***ESTO VA TERCERO 3 ****************************************** */}
 
-              <div className='btn btn-primary text-center' id='lugar' onClick={this.manejoOnClick}>Buscar Lugar</div>{/***invocamos la funcion manejoOnclick al prisionar en buscar lugar */}
+              <div className='btn btn-primary text-center btn-danger' id='lugar' onClick={this.manejoOnClick}>Buscar Lugar</div>{/***invocamos la funcion manejoOnclick al prisionar en buscar lugar */}
             </div>
             <div className='col-4'></div>
           </div>
@@ -316,7 +337,7 @@ class Mapapp extends Component {
           {this.state.places &&
             <div className='row'>
               <div className="col-12">
-                <button className="btn btn-primary text-center" onClick={this.Sitioscercanos}>Buscar lugares cercanos</button>
+                <button className="btn btn-primary text-center btn-danger" onClick={this.Sitioscercanos}>Buscar lugares cercanos</button>
               </div>
             </div>}
           <div className="row row-cols-1 row-cols-md-1 mt-2">
@@ -327,7 +348,7 @@ class Mapapp extends Component {
           {this.state.cercanos &&
             <div className="container">
               <div className="mb-3">
-                <a href='#' onClick={(e) => {
+                <a className="text-dark" href='#' onClick={(e) => {
                   e.preventDefault();
                   this.setState({ muestratodo: true });
                 }}>

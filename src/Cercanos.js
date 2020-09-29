@@ -8,7 +8,7 @@ export default class Cercanos extends Component {
     this.state=({mostrar: false})
   }
 
-  
+  //cargamos dom html para mostrar los sitios cercanos
   render() {
 
     let placePhoto = this.props.placeData.photos?.length &&

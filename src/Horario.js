@@ -5,7 +5,8 @@ export default class Horario extends Component {
     super(props);
     this.state={mostrar:props.mostrarHorario}
   }
-
+  
+//con este evento mostramos el horario
   manejoOnClick = (e) => {
     if (e.target.id='horario'){
       this.setState((prevState) => {
@@ -14,6 +15,7 @@ export default class Horario extends Component {
     }
   }
 
+  //traemos de la consulta principal el horario si el sitio lo tiene se habilita el boton para mostrarlo
   render() {
     var horarios='';
     if (this.props.horarios){
