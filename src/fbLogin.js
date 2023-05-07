@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Mapapp from './mapApp.js';
 import './App.css';
+import Mapapp from './mapApp.js';
 
 
-export default class FB_Login extends Component {
+export default class Fblogin extends Component {
   constructor(props) {
     super(props);
     this.state = { fbLogon: this.props.logged };
@@ -67,7 +67,7 @@ export default class FB_Login extends Component {
   manejoOnClick = () => {
     if (!this.FB) this.FB = window.FB;
     if (this.FB) {
-      if (this.state.fbLogon == '2') {
+      if (this.state.fbLogon === '2') {
         this.FB.logout(this.fbLoginStatus)
       } else {
         this.FB.login(this.fbLoginStatus)
@@ -90,15 +90,5 @@ export default class FB_Login extends Component {
       )
 
     }
-
-
-    /*
-    const nombreBtn = this.state.fbLogon ? 'Salir':'Ingresar con Facebook'
-    return (
-     <div>
-        <div className='btn btn-primary' id='autenticar' onClick={this.manejoOnClick}>{nombreBtn}</div>
-     </div>
-    )
-    */
   }
 }

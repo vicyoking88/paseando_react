@@ -1,68 +1,35 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# App React
 
-## Available Scripts
+Aplicación creada con React versión 16.13.1 y node versión 16.
 
-In the project directory, you can run:
+# Introduction
 
-### `npm start`
+El objetivo principal de la app es loguearse y tener acceso a las búsqueda de sitios en el mundo. 
+- login: se compone de tres formas de logueo siendo usuario de Facebook, Google o de la misma página. Para el caso de Facebook y Google se utilizan sus respectivas apis:
+  - google : en la ubicación `public/index.html` encontramos los scripts para su modificacion o adición. En la ubicación `src/googleLogin.js` vemos el código que realiza llamado a las funciones de este script.
+  - Facebook: en la ubicación `src/fbLogin.js` vemos el script y el respectivo código para llamar las apis y confirmar el usuario.
+  - paseandoando : si no somos usuarios Facebook o Google podremos loguearnos directamente en el memento no tiene configuración alguna, si colocamos cualquier correo y contraseña podremos entrar, esto con la idea de que se adapte a un back o nube y se configure.
+  - nuevo usuario: el botón new account para llamar al formulario no está creado, pero sirve como guía para su configuración.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Search places
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Después de loguearse podrá acceder a la búsqueda e sitios con las apis de Google, para usar esta característica se configura el script en el `public/index.html` o si desea crear el elemento nativo con js. 
+- En el fichero `src/mapApp.js` podemos ver el código que hace llamado a las funciones de Google para ubicación en el mapa y carga de fotos.
 
-### `npm test`
+# Boot modes
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `npm run start` : Se habilitara en un entorno local de desarrollo por defecto servira en la url `http://localhost:3000/`.
 
-### `npm run build`
+- `npm run build` : Construira la app lista para su uso productivo en la carpeta `build`.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `npm run test` : Correran pruebas unitarias en el momento no se enfoco en la creacion de estas para mayor informacion `https://es.legacy.reactjs.org/docs/testing.html`
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- `npm run eject` : Para acceder y modificar configuracion de Babel y Webpack.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Environemnts
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+No se tiene configuración previa de los entornos para mayor información `https://create-react-app.dev/docs/adding-custom-environment-variables/`
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

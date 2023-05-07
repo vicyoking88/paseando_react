@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import Place from './place';
+import Cercanos from './Cercanos';
 import Horario from './Horario';
 import Rating from './Rating';
-import Cercanos from './Cercanos';
+import Place from './place';
 
 class Mapapp extends Component {
   constructor(props) {

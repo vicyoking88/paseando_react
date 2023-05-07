@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import './App.css';
 
 export default class Rating extends Component {
@@ -95,7 +95,7 @@ export default class Rating extends Component {
           <div className='col-1'><strong>{this.props.placeRating}</strong></div>
           <div className='col-6'><canvas id="canvas" height='30px' ></canvas></div>
         </div>
-        <div className='mb-3 '><a href='#' id='btnComentarios' onClick={this.manejoOnClick}>{btnName}</a></div>
+        <div className='mb-3 '><a href='/' id='btnComentarios' onClick={this.manejoOnClick}>{btnName}</a></div>
         <div className={'container '+mostrar}>
           {reviews}
         </div>
